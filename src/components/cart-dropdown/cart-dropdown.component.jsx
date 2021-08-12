@@ -1,5 +1,5 @@
 import CustomButtom from "../custom-buttom/custom-buttom.component";
-import CartItem from "../../cart-item/cart-item.component";
+import CartItem from "../cart-item/cart-item.component";
 import { connect } from "react-redux";
 import "./cart-dropdown.styles.scss";
 
