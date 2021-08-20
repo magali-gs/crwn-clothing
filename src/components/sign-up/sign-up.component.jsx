@@ -1,8 +1,8 @@
-import FormInput from "../form-input/form-input.component";
-import CustomButtom from "../custom-buttom/custom-buttom.component";
-import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
-import "./sign-up.styles.scss";
 import { Component } from "react";
+import FormInput from "../form-input/form-input.component";
+import CustomButton from "../custom-button/custom-button.component";
+import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
+import { SignUpContainer, SignUpTitle } from "./sign-up.styles";
 
 export default class SignUp extends Component {
     constructor() {
@@ -51,8 +51,8 @@ export default class SignUp extends Component {
     render() {
         const { displayName, email, password, confirmPassword } = this.state;
         return (
-			<div className="sign-up">
-				<h2 className="title">I do have an account</h2>
+			<SignUpContainer>
+				<SignUpTitle>I do have an account</SignUpTitle>
 				<span>Sign up with your name and password</span>
 				<form className="sign-up-form" onSubmit={this.handleSubmit}>
 					<FormInput
@@ -87,9 +87,9 @@ export default class SignUp extends Component {
 						label="Confirm ppassword"
 						required
 					/>
-					<CustomButtom type="submit">SIGN UP</CustomButtom>
+					<CustomButton type="submit">SIGN UP</CustomButton>
 				</form>
-			</div>
+			</SignUpContainer>
 		);
     }
 }

@@ -18,19 +18,19 @@ const invertedButtonStyles = css`
 	border: 1px solid black;
 
 	&:hover {
+		border: none;
 		background-color: black;
 		color: white;
-		border: none;
 	}
 `;
 
 const googleSignInStyles = css`
 	background-color: #4285f4;
 	color: white;
+	border: none;
 
 	&:hover {
 		background-color: #357ae8;
-		border: none;
 	}
 `;
 
