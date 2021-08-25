@@ -1,56 +1,47 @@
 import { Component } from "react";
+import { connect } from "react-redux";
+
+import { signUpStart } from "../../redux/user/user.actions";
+
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
-import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
+
 import { SignUpContainer, SignUpTitle } from "./sign-up.styles";
 
-export default class SignUp extends Component {
-    constructor() {
-        super();
+class SignUp extends Component {
+	constructor() {
+		super();
 
-        this.state = {
-            displayName: '',
-            email: '',
-            password: '',
-            confirmPassword: ''
-        }
-    }
+		this.state = {
+			displayName: "",
+			email: "",
+			password: "",
+			confirmPassword: "",
+		};
+	}
 
-    handleSubmit = async e => {
-        e.preventDefault();
+	handleSubmit = async (e) => {
+		e.preventDefault();
+		const { signUpStart } = this.props
+		const { displayName, email, password, confirmPassword } = this.state;
 
-        const { displayName, email, password, confirmPassword } = this.state;
+		if (password !== confirmPassword) {
+			alert("Password don't match");
+			return;
+		}
 
-        if(password !== confirmPassword) {
-            alert("Password don't match");
-            return
-        }
+		signUpStart({ displayName, email, password }) ;
+	};
 
-        try {
-            const { user } = await auth.createUserWithEmailAndPassword(email, password);
+	handleChange = (e) => {
+		const { name, value } = e.target;
 
-            await createUserProfileDocument(user, { displayName });
+		this.setState({ [name]: value });
+	};
 
-            this.setState({
-                displayName: '',
-                email: '',
-                password: '',
-                confirmPassword: ''
-            })
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    handleChange = e => {
-        const { name, value } = e.target;
-
-        this.setState({ [name]: value});
-    }
-
-    render() {
-        const { displayName, email, password, confirmPassword } = this.state;
-        return (
+	render() {
+		const { displayName, email, password, confirmPassword } = this.state;
+		return (
 			<SignUpContainer>
 				<SignUpTitle>I do have an account</SignUpTitle>
 				<span>Sign up with your name and password</span>
@@ -84,12 +75,18 @@ export default class SignUp extends Component {
 						name="confirmPassword"
 						value={confirmPassword}
 						onChange={this.handleChange}
-						label="Confirm ppassword"
+						label="Confirm password"
 						required
 					/>
 					<CustomButton type="submit">SIGN UP</CustomButton>
 				</form>
 			</SignUpContainer>
 		);
-    }
+	}
 }
+
+const mapDispatchToProps = (dispatch) => ({
+	signUpStart: (userCredentials) => dispatch(signUpStart(userCredentials)),
+});
+
+export default connect(null, mapDispatchToProps)(SignUp);
