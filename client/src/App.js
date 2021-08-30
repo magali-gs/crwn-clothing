@@ -11,7 +11,7 @@ import ShopPage from "./pages/shop/shop.component";
 import SignInAndSignUp from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
 import CheckoutPage from "./pages/checkout/checkout.component";
 
-import "./App.css";
+import { GlobalStyle } from "./global.styles";
 
 const App = () => {
 	const currentUser = useSelector(selectCurrentUser);
@@ -23,6 +23,7 @@ const App = () => {
 
 	return (
 		<div>
+			<GlobalStyle />
 			<Header />
 			<Switch>
 				<Route exact path="/" component={HomePage} />
